@@ -4,6 +4,7 @@ import com.alex.restfulwebservice.dao.UserDao;
 import com.alex.restfulwebservice.exception.UserNotFoundException;
 import com.alex.restfulwebservice.pojo.UserPojo;
 import com.alex.restfulwebservice.service.UserService;
+import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +42,7 @@ public class UserRestController {
   }
 
   @PostMapping(path = "/user")
-  public ResponseEntity<UserPojo> saveUsers(@RequestBody UserPojo newUser) {
+  public ResponseEntity<UserPojo> saveUsers(@Valid @RequestBody UserPojo newUser) {
     userService.saveUser(newUser);
     return ResponseEntity.status(HttpStatus.CREATED)
         .body(newUser);
