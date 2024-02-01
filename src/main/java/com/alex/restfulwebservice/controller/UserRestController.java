@@ -1,6 +1,7 @@
 package com.alex.restfulwebservice.controller;
 
 import com.alex.restfulwebservice.dao.UserDao;
+import com.alex.restfulwebservice.exception.UserNotFoundException;
 import com.alex.restfulwebservice.pojo.UserPojo;
 import com.alex.restfulwebservice.service.UserService;
 import java.util.List;
@@ -30,7 +31,12 @@ public class UserRestController {
   //
   @GetMapping(path = "/user/{userId}")
   public UserDao getUserById(@PathVariable Integer userId) {
-    return userService.findOne(userId);
+    UserDao user = userService.findOne(userId);
+    if (user == null) {
+      throw new UserNotFoundException("Id" + userId);
+    }
+
+    return user;
   }
 
   @PostMapping(path = "/user")
