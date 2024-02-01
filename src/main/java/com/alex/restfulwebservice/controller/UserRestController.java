@@ -33,7 +33,7 @@ public class UserRestController {
   public UserDao getUserById(@PathVariable Integer userId) {
     UserDao user = userService.findOne(userId);
     if (user == null) {
-      throw new UserNotFoundException("Id" + userId);
+      throw new UserNotFoundException("userId=" + userId);
     }
 
     return user;
