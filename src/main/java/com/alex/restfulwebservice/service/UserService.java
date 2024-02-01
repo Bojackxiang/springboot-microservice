@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class UserService {
 
 
-  private static final List<UserDao> users = new ArrayList<>();
+  private static List<UserDao> users = new ArrayList<>();
 
   // static
   static {
@@ -43,5 +43,8 @@ public class UserService {
 
   }
 
-
+  // delete user
+  public void deleteUserById(Integer userId) {
+    UserService.users = users.stream().filter(user -> !user.getId().equals(userId)).toList();
+  }
 }

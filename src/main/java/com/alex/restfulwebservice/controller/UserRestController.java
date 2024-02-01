@@ -7,6 +7,7 @@ import com.alex.restfulwebservice.service.UserService;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,29 +25,34 @@ public class UserRestController {
 
   //
   @GetMapping(path = "/users")
-  public List<UserDao> getUsers() {
-    return userService.findAllUser();
+  public ResponseEntity<List<UserDao>> getUsers() {
+    return ResponseEntity.status(HttpStatus.ACCEPTED).body(userService.findAllUser());
   }
 
   //
   @GetMapping(path = "/user/{userId}")
-  public UserDao getUserById(@PathVariable Integer userId) {
+  public ResponseEntity<UserDao> getUserById(@PathVariable Integer userId) {
     UserDao user = userService.findOne(userId);
     if (user == null) {
       throw new UserNotFoundException("userId=" + userId);
     }
 
-    return user;
+    return ResponseEntity.status(HttpStatus.ACCEPTED).body(user);
   }
 
   @PostMapping(path = "/user")
   public ResponseEntity<UserPojo> saveUsers(@RequestBody UserPojo newUser) {
-    System.out.println("newUser = " + newUser.toString());
     userService.saveUser(newUser);
-
     return ResponseEntity.status(HttpStatus.CREATED)
         .body(newUser);
 
+  }
+
+  @DeleteMapping(path = "/user/{userId}")
+  public ResponseEntity<UserPojo> saveUsers(@PathVariable Integer userId) {
+    userService.deleteUserById(userId);
+
+    return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
   }
 
 }
