@@ -29,7 +29,7 @@ public class UserRestControllerV2 {
   }
 
   //
-  @GetMapping(path = "/upsers")
+  @GetMapping(path = "/users")
   public ResponseEntity<List<UserDao>> getUsers() {
     return ResponseEntity.status(HttpStatus.ACCEPTED).body(userService.findAllUser());
   }

@@ -1,10 +1,14 @@
 package com.alex.restfulwebservice.dao;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDate;
 
 public class UserDao {
+  @JsonIgnore()
   private Integer id;
   private LocalDate localDate;
+  @JsonProperty("user_name")
   private String name;
 
   public UserDao(Integer id, LocalDate localDate, String name) {
