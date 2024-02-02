@@ -7,7 +7,7 @@
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.1.8</version>
 		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
+	</parent>p
 	<groupId>com.alex</groupId>
 	<artifactId>restful-web-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -54,6 +54,7 @@
 			<version>2.3.0</version>
 		</dependency>
 	</dependencies>
+
 
 	<build>
 		<plugins>
