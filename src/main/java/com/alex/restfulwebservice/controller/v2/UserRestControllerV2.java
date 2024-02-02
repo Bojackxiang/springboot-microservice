@@ -6,6 +6,8 @@ import com.alex.restfulwebservice.pojo.UserPojo;
 import com.alex.restfulwebservice.service.UserService;
 import jakarta.validation.Valid;
 import java.util.List;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -34,13 +36,19 @@ public class UserRestControllerV2 {
 
   //
   @GetMapping(path = "/user/{userId}")
-  public ResponseEntity<UserDao> getUserById(@PathVariable Integer userId) {
+  public EntityModel<UserDao> getUserById(@PathVariable Integer userId) {
     UserDao user = userService.findOne(userId);
     if (user == null) {
       throw new UserNotFoundException("userId=" + userId);
     }
 
-    return ResponseEntity.status(HttpStatus.ACCEPTED).body(user);
+    EntityModel<UserDao> model = EntityModel.of(user);
+    WebMvcLinkBuilder link = WebMvcLinkBuilder.linkTo(
+        WebMvcLinkBuilder.methodOn(this.getClass()).getUsers());
+
+    model.add(link.withRel("all-users"));
+
+    return model;
   }
 
   @PostMapping(path = "/user")
