@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import java.time.LocalDate;
+import java.util.List;
 import javax.annotation.processing.Generated;
 
 @Entity
@@ -17,6 +19,10 @@ public class UserDao {
   private LocalDate localDate;
   @JsonProperty("user_name")
   private String name;
+
+  @JsonIgnore
+  @OneToMany(mappedBy = "author")
+  private List<Post> postList;
 
   public UserDao(Integer id, LocalDate localDate, String name) {
     this.id = id;
