@@ -2,10 +2,17 @@ package com.alex.restfulwebservice.dao;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import java.time.LocalDate;
+import javax.annotation.processing.Generated;
 
+@Entity
 public class UserDao {
-  @JsonIgnore()
+  // @JsonIgnore()
+  @Id
+  @GeneratedValue()
   private Integer id;
   private LocalDate localDate;
   @JsonProperty("user_name")
@@ -15,6 +22,10 @@ public class UserDao {
     this.id = id;
     this.localDate = localDate;
     this.name = name;
+  }
+
+  public UserDao() {
+
   }
 
   public Integer getId() {
