@@ -8,7 +8,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import java.time.LocalDate;
 import java.util.List;
-import javax.annotation.processing.Generated;
 
 @Entity
 public class UserDao {
@@ -23,6 +22,14 @@ public class UserDao {
   @JsonIgnore
   @OneToMany(mappedBy = "author")
   private List<Post> postList;
+
+  public List<Post> getPostList() {
+    return postList;
+  }
+
+  public void setPostList(List<Post> postList) {
+    this.postList = postList;
+  }
 
   public UserDao(Integer id, LocalDate localDate, String name) {
     this.id = id;

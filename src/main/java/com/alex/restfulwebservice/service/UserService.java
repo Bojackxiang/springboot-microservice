@@ -2,6 +2,7 @@ package com.alex.restfulwebservice.service;
 
 import com.alex.restfulwebservice.dao.UserDao;
 import com.alex.restfulwebservice.pojo.UserPojo;
+import com.alex.restfulwebservice.repo.UserRepo;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,12 @@ public class UserService {
     users.add(new UserDao(2, LocalDate.now().minusYears(2), "bob"));
     users.add(new UserDao(3, LocalDate.now().minusDays(2), "cindy"));
     users.add(new UserDao(4, LocalDate.now().minusMonths(6), "Dane"));
+  }
+
+  private final UserRepo userRepo;
+
+  public UserService(UserRepo userRepo) {
+    this.userRepo = userRepo;
   }
 
   // find all users
@@ -39,8 +46,9 @@ public class UserService {
 
     UserDao newUser = new UserDao(UserService.users.size() - 1, LocalDate.now(), username);
 
-    UserService.users.add(newUser);
+    // UserService.users.add(newUser);
 
+    userRepo.save(newUser);
   }
 
   // delete user
